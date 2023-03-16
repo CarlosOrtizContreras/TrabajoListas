@@ -3,8 +3,8 @@ package trabajolistas;
 import javax.swing.JOptionPane;
 
 public class Listas {
-    Nodo Punta;
-    Nodo Final;
+    public Nodo Punta;
+    public Nodo Final;
 
     /**
      * @param Listas Este constructor permite agregar valores iniciales a un objeto
@@ -36,9 +36,9 @@ public class Listas {
         Nodo nuevo = new Nodo(entrada);
         if (Punta == null) {
             Punta = nuevo;
-            Final = Punta;
             Punta.setLigaDerecha(Punta);
             Punta.setLigaIzquierda(Punta);
+            Final = Punta;
         } else {
             posicion = Punta;
             Punta = nuevo;
@@ -70,29 +70,17 @@ public class Listas {
 
         if (Punta == null) {
             Punta = nuevo;
-            Final = Punta;
             Punta.setLigaDerecha(Punta);
             Punta.setLigaIzquierda(Punta);
+            Final = Punta;
         } else {
-            posicion = Punta;
-
-            while (posicion.getLigaDerecha() != Punta) {
-                posicion = posicion.getLigaDerecha();
-            }
+            posicion = Final;
             Final = nuevo;
             posicion.setLigaDerecha(Final);
             Final.setLigaIzquierda(posicion);
             Final.setLigaDerecha(Punta);
             Punta.setLigaIzquierda(Final);
         }
-    }
-
-    public void InsertarOrdenadoAscendente(int entrada) {
-
-    }
-
-    public void SumaListas() {
-
     }
 
     public void OrdenarAscendente() {
@@ -106,7 +94,7 @@ public class Listas {
             Nodo auxiliar3;
             Nodo auxiliar4;
             posicion1 = Punta;
-            while (posicion1.getLigaDerecha() != null) {
+            while (posicion1.getLigaDerecha() != Punta) {
                 posicion2 = posicion1.getLigaDerecha();
                 boolean condicion = true;
                 while (condicion) {
@@ -119,17 +107,10 @@ public class Listas {
                             auxiliar3 = posicion1;
                             posicion1 = posicion2;
                             posicion1.setLigaDerecha(auxiliar3);
-                            posicion1.setLigaIzquierda(null);
+                            posicion1.setLigaIzquierda(Final);
                             auxiliar3.setLigaIzquierda(posicion1);
                             Punta = posicion1;
                             posicion2 = auxiliar;
-
-                            /*
-                             * Punta = posicion2;
-                             * posicion2.setLigaDerecha(posicion1);
-                             * posicion2.setLigaIzquierda(null);
-                             * posicion1.setLigaIzquierda(posicion2);
-                             */
                         } else {
                             auxiliar3 = posicion1;
                             posicion1 = posicion2;
@@ -139,15 +120,12 @@ public class Listas {
                             auxiliar4 = posicion1.getLigaIzquierda();
                             auxiliar4.setLigaDerecha(posicion1);
                             posicion2 = auxiliar;
-
-                            /*
-                             * posicion2.setLigaIzquierda(posicion1.getLigaIzquierda());
-                             * posicion2.setLigaDerecha(posicion1);
-                             * posicion1.setLigaIzquierda(posicion2);
-                             */
+                            if (auxiliar2 == Punta) {
+                                Final = auxiliar;
+                            }
                         }
                     }
-                    if (posicion2.getLigaDerecha() == null) {
+                    if (posicion2.getLigaDerecha() == Punta) {
                         condicion = false;
                     } else {
                         posicion2 = posicion2.getLigaDerecha();
@@ -160,16 +138,46 @@ public class Listas {
         }
     }
 
-    
+    public void BuscarDato(int entrada) {
+        Nodo posicion;
+        boolean condicion = true;
+        if (Punta == null) {
+            JOptionPane.showMessageDialog(null, "La lista esta vacia, imposible buscar");
+        } else {
+            posicion = Punta;
+            do {
+                if (posicion.getDato() == entrada) {
+                    JOptionPane.showMessageDialog(null, "El dato si esta en la Lista");
+                    condicion = false;
+                }
+                posicion = posicion.getLigaDerecha();
+                if (posicion == Punta) {
+                    JOptionPane.showMessageDialog(null, "El Dato no esta en la lista");
+                    condicion = false;
+                }
+
+            } while (condicion);
+        }
+
+    }
+
+    /**
+     * @param MostrarLista Esta funcion permite Mostrar los elementos de una lista
+     * @param posicion     Esta variable permite el recorrido de la lista para
+     *                     mostrar los valores solicitados
+     * @param salida       Esta variable tipo string, permite recolectar los daros
+     *                     que contiene cada nodo de la lista, para al final
+     *                     mostralos en pantalla
+     * @param Punta        Esta variable tipo nodo indica el inicio de la lista
+     */
     public void MostrarLista() {
         if (Punta != null) {
             String salida = " ";
             Nodo posicion = Punta;
-            do{
+            do {
                 salida = salida + " | " + posicion.getDato() + " | ";
                 posicion = posicion.getLigaDerecha();
-            }
-            while(posicion != Punta);
+            } while (posicion != Punta);
             JOptionPane.showMessageDialog(null, salida);
         } else {
             JOptionPane.showMessageDialog(null, "La lista esta vacia");
