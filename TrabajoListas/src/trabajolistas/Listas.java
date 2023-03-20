@@ -6,31 +6,11 @@ public class Listas {
     public Nodo Punta;
     public Nodo Final;
 
-    /**
-     * @param Listas Este constructor permite agregar valores iniciales a un objeto
-     *               creado con la clase lista
-     * @param Final  Este nodo en el constructor, por defecto sera "null"
-     * @param Punta  Este nodo en el constructor, por defecto sera "null"
-     */
     public Listas() {
         Punta = null;
         Final = null;
     }
 
-    /**
-     * @param InsertarInicio Esta Funcion permite añadir un elemento a una lista en
-     *                       la primera posicion de la misma.
-     * @param entrada        Este parametro de entrada a esta funcion, es el dato
-     *                       tipo entero que se va a agregar a la lista.
-     * @param posicion       Esta variable, permite ubicar el inicio de la lista, en
-     *                       caso de que se mueva la punta, dicha lista no se pierda
-     * @param Final          Esta variable tipo Nodo permite ubicar el fin de la
-     *                       lista
-     * @param Punta          Esta variable tipo Nodo permite Ubicar el inicio de
-     *                       dicha lista
-     * @param nuevo          Esta variable tipo Nodo es el nuevo objeto creado que
-     *                       se va a agregar a la lista
-     */
     public void InsertarInicio(int entrada) {
         Nodo posicion;
         Nodo nuevo = new Nodo(entrada);
@@ -50,20 +30,96 @@ public class Listas {
 
     }
 
-    /**
-     * @param InsertarFinal Esta funcion permite ingresar datos a la lista en la
-     *                      ultima posicion
-     * @param entrada       Es el atributo que va a tener la funcion como entrada de
-     *                      datos tipo enteros para agregar a la lista
-     * @param nuevo         Es el nuevo objeto o nodo que se crea para agregar a la
-     *                      lista
-     * @param posicion      Esta variable tipo nodo, permite recorrer la lista,
-     *                      hasta encontrar el ultimo nodo o la ultima posicion y
-     *                      alli insertar el valor
-     * @param Punta         Esta variable tipo nodo Indica el nodo de inicio de la
-     *                      lista
-     * @param Final         Esta VARIABLE TIPO nodo Indica el nodo final de la lista
-     */
+    public void InsertarOrdenadoAscendente(int d) {
+        Nodo x = new Nodo(d);
+        Nodo a, p, b;
+
+        if (Punta == null) {
+            Punta = x;
+            Punta.setLigaDerecha(x);
+            Punta.setLigaIzquierda(x);
+            Final = Punta;
+        } else {
+            p = Punta;
+            if (x.getDato() < p.getDato()) {
+                Punta = x;
+                Punta.setLigaIzquierda(Final);
+                Punta.setLigaDerecha(p);
+                p.setLigaIzquierda(Punta);
+                Final.setLigaDerecha(Punta);
+            } else {
+                do {
+                    a = p;
+                    p = p.getLigaDerecha();
+                } while (p != Punta && p.getDato() < x.getDato());
+                a = p;
+                b = a.getLigaIzquierda();
+                if (p == Punta) {
+                    b = Final;
+                    x.setLigaIzquierda(b);
+                    b.setLigaDerecha(x);
+                    Final = x;
+                    Final.setLigaDerecha(Punta);
+                    Punta.setLigaIzquierda(Final);
+                } else {
+                    x.setLigaIzquierda(b);
+                    x.setLigaDerecha(a);
+                    b.setLigaDerecha(x);
+                    a.setLigaIzquierda(x);
+                }
+            }
+        }
+    }
+
+    public void InsertarOrdenadoDescendente(int d) {
+        Nodo x = new Nodo(d);
+        Nodo a, p, b, c, f;
+
+        if (Punta == null) {
+            Punta = x;
+            Punta.setLigaDerecha(x);
+            Punta.setLigaIzquierda(x);
+            Final = Punta;
+        } else {
+            p = Punta;
+            if (x.getDato() > p.getDato()) {
+                Punta = x;
+                Punta.setLigaIzquierda((Final));
+                Punta.setLigaDerecha(p);
+                p.setLigaIzquierda(Punta);
+                Final.setLigaDerecha(Punta);
+            } else {
+                do {
+                    a = p;
+                    p = p.getLigaDerecha();
+                } while (p != Punta && p.getDato() < x.getDato());
+                a = p;
+                b = a.getLigaDerecha();
+                c = a.getLigaIzquierda();
+                f = b.getLigaDerecha();
+                if (x.getDato() < Final.getDato()) {
+                    b = Final;
+                    x.setLigaIzquierda(b);
+                    b.setLigaDerecha(x);
+                    Final = x;
+                    Final.setLigaDerecha(Punta);
+                    Punta.setLigaIzquierda(Final);
+                }
+                if (x.getDato() < b.getDato()) {
+                    x.setLigaIzquierda(b);
+                    x.setLigaDerecha(f);
+                    f.setLigaIzquierda(x);
+                    b.setLigaDerecha(x);
+                } else {
+                    x.setLigaIzquierda(a);
+                    x.setLigaDerecha(b);
+                    a.setLigaDerecha(x);
+                    b.setLigaIzquierda(x);
+                }
+            }
+        }
+    }
+
     public void InsertarFinal(int entrada) {
         Nodo posicion;
         Nodo nuevo = new Nodo(entrada);
@@ -87,53 +143,48 @@ public class Listas {
         if (Punta == null) {
             JOptionPane.showMessageDialog(null, "La lista esta vacia");
         } else {
-            Nodo posicion1;
+            Nodo posicion;
             Nodo posicion2;
             Nodo auxiliar;
             Nodo auxiliar2;
             Nodo auxiliar3;
-            Nodo auxiliar4;
-            posicion1 = Punta;
-            while (posicion1.getLigaDerecha() != Punta) {
-                posicion2 = posicion1.getLigaDerecha();
-                boolean condicion = true;
-                while (condicion) {
-                    if (posicion2.getDato() <= posicion1.getDato()) {
-                        auxiliar = posicion2.getLigaIzquierda();
-                        auxiliar2 = posicion2.getLigaDerecha();
-                        auxiliar.setLigaDerecha(posicion2.getLigaDerecha());
-                        auxiliar2.setLigaIzquierda(posicion2.getLigaIzquierda());
-                        if (Punta == posicion1) {
-                            auxiliar3 = posicion1;
-                            posicion1 = posicion2;
-                            posicion1.setLigaDerecha(auxiliar3);
-                            posicion1.setLigaIzquierda(Final);
-                            auxiliar3.setLigaIzquierda(posicion1);
-                            Punta = posicion1;
-                            posicion2 = auxiliar;
-                        } else {
-                            auxiliar3 = posicion1;
-                            posicion1 = posicion2;
-                            posicion1.setLigaDerecha(auxiliar3);
-                            posicion1.setLigaIzquierda(auxiliar3.getLigaIzquierda());
-                            auxiliar.setLigaIzquierda(posicion1);
-                            auxiliar4 = posicion1.getLigaIzquierda();
-                            auxiliar4.setLigaDerecha(posicion1);
-                            posicion2 = auxiliar;
-                            if (auxiliar2 == Punta) {
-                                Final = auxiliar;
-                            }
-                        }
-                    }
-                    if (posicion2.getLigaDerecha() == Punta) {
-                        condicion = false;
+            posicion = Punta;
+            while (posicion.getLigaDerecha() != Punta) {
+                posicion2 = posicion.getLigaDerecha();
+                while (posicion2.getDato() >= posicion.getDato() && posicion2 != Punta) {
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+                if (posicion2 != Punta) {
+                    auxiliar = posicion2.getLigaIzquierda();
+                    auxiliar2 = posicion2.getLigaDerecha();
+                    auxiliar.setLigaDerecha(auxiliar2);
+                    auxiliar2.setLigaIzquierda(auxiliar);
+                    if (posicion == Punta) {
+                        posicion2.setLigaDerecha(Punta);
+                        posicion2.setLigaIzquierda(Final);
+                        Punta = posicion2;
+                        posicion.setLigaIzquierda(Punta);
+                        Final.setLigaDerecha(Punta);
+                        posicion = Punta;
                     } else {
-                        posicion2 = posicion2.getLigaDerecha();
-
+                        if (posicion2 == Final) {
+                            Final = auxiliar;
+                        }
+                        posicion2.setLigaDerecha(posicion);
+                        auxiliar3 = posicion.getLigaIzquierda();
+                        posicion2.setLigaIzquierda(auxiliar3);
+                        posicion.setLigaIzquierda(posicion2);
+                        auxiliar3.setLigaDerecha(posicion2);
+                        posicion = posicion2.getLigaIzquierda();
+                        ;
                     }
                 }
-                posicion1 = posicion1.getLigaDerecha();
-
+                if (posicion2 == Punta) {
+                    posicion2 = Punta.getLigaDerecha();
+                    posicion = posicion.getLigaDerecha();
+                } else {
+                    posicion2 = posicion2.getLigaDerecha();
+                }
             }
         }
     }
@@ -161,15 +212,6 @@ public class Listas {
 
     }
 
-    /**
-     * @param MostrarLista Esta funcion permite Mostrar los elementos de una lista
-     * @param posicion     Esta variable permite el recorrido de la lista para
-     *                     mostrar los valores solicitados
-     * @param salida       Esta variable tipo string, permite recolectar los daros
-     *                     que contiene cada nodo de la lista, para al final
-     *                     mostralos en pantalla
-     * @param Punta        Esta variable tipo nodo indica el inicio de la lista
-     */
     public void MostrarLista() {
         if (Punta != null) {
             String salida = " ";
@@ -183,4 +225,127 @@ public class Listas {
             JOptionPane.showMessageDialog(null, "La lista esta vacia");
         }
     }
+
+    public void ReemplazarDato(int entrada, int reemplazo) {
+        Nodo posicion;
+        boolean condicion = true;
+
+        if (Punta == null) {
+            JOptionPane.showMessageDialog(null, "La lista esta vacida");
+        } else {
+            posicion = Punta;
+            do {
+                if (entrada == posicion.getDato()) {
+                    posicion.setDato(reemplazo);
+                    condicion = false;
+                }
+                posicion = posicion.getLigaDerecha();
+                if (posicion == Punta) {
+                    JOptionPane.showMessageDialog(null, "El dato que se desea reemplazar no existe");
+                    condicion = false;
+                }
+            } while (condicion);
+        }
+    }
+
+    public void EliminarDato(int entrada) {
+        Nodo posicion;
+        Nodo auxiliar;
+        Nodo auxiliar2;
+
+        if (Punta == null) {
+            JOptionPane.showMessageDialog(null, "La Lista esta vacida");
+
+        } else {
+            posicion = Punta;
+            boolean condicion = true;
+            do {
+                if (posicion.getDato() == entrada) {
+                    if (posicion.getLigaDerecha() == Punta && posicion.getLigaIzquierda() == Punta) {
+                        Punta = null;
+                        condicion = false;
+                    } else if (posicion == Punta) {
+                        auxiliar2 = posicion.getLigaDerecha();
+                        posicion.setLigaDerecha(null);
+                        posicion.setLigaIzquierda(null);
+                        Punta = auxiliar2;
+                        Punta.setLigaIzquierda(Final);
+                        Final.setLigaDerecha(Punta);
+                        condicion = false;
+                    } else if (posicion == Final) {
+                        auxiliar = Final.getLigaIzquierda();
+                        posicion.setLigaDerecha(null);
+                        posicion.setLigaIzquierda(null);
+                        Final = auxiliar;
+                        Final.setLigaDerecha(Punta);
+                        Punta.setLigaIzquierda(Final);
+                        condicion = false;
+                    } else {
+                        auxiliar = posicion.getLigaIzquierda();
+                        auxiliar2 = posicion.getLigaDerecha();
+                        posicion.setLigaDerecha(null);
+                        posicion.setLigaIzquierda(null);
+                        auxiliar.setLigaDerecha(auxiliar2);
+                        auxiliar2.setLigaIzquierda(auxiliar);
+                        condicion = false;
+                    }
+                    posicion = posicion.getLigaDerecha();
+                    if (posicion == Punta) {
+                        JOptionPane.showMessageDialog(null, "El dato a eliminar no se encuentra en la lista");
+                        condicion = false;
+                    }
+                }
+            } while (condicion);
+        }
+    }
+
+    public void OrdenarDescendente() {
+        if (Punta == null) {
+            JOptionPane.showMessageDialog(null, "La lista esta vacia");
+        } else {
+            Nodo posicion;
+            Nodo posicion2;
+            Nodo auxiliar;
+            Nodo auxiliar2;
+            Nodo auxiliar3;
+            posicion = Punta;
+            while (posicion.getLigaDerecha() != Punta) {
+                posicion2 = posicion.getLigaDerecha();
+                while (posicion2.getDato() <= posicion.getDato() && posicion2 != Punta) {
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+                if (posicion2 != Punta) {
+                    auxiliar = posicion2.getLigaIzquierda();
+                    auxiliar2 = posicion2.getLigaDerecha();
+                    auxiliar.setLigaDerecha(auxiliar2);
+                    auxiliar2.setLigaIzquierda(auxiliar);
+                    if (posicion == Punta) {
+                        posicion2.setLigaDerecha(Punta);
+                        posicion2.setLigaIzquierda(Final);
+                        Punta = posicion2;
+                        posicion.setLigaIzquierda(Punta);
+                        Final.setLigaDerecha(Punta);
+                        posicion = Punta;
+                    } else {
+                        if (posicion2 == Final) {
+                            Final = auxiliar;
+                        }
+                        posicion2.setLigaDerecha(posicion);
+                        auxiliar3 = posicion.getLigaIzquierda();
+                        posicion2.setLigaIzquierda(auxiliar3);
+                        posicion.setLigaIzquierda(posicion2);
+                        auxiliar3.setLigaDerecha(posicion2);
+                        posicion = posicion2.getLigaIzquierda();
+                    }
+                }
+                if (posicion2 == Punta) {
+                    posicion2 = Punta.getLigaDerecha();
+                    posicion = posicion.getLigaDerecha();
+                } else {
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+            }
+        }
+    }
+
 }
