@@ -30,92 +30,74 @@ public class Listas {
 
     }
 
-    public void InsertarOrdenadoAscendente(int d) {
-        Nodo x = new Nodo(d);
-        Nodo a, p, b;
-
-        if (Punta == null) {
-            Punta = x;
-            Punta.setLigaDerecha(x);
-            Punta.setLigaIzquierda(x);
+    public void InsertarOrdenadoAscendente(int entrada) {
+        Nodo nuevo = new Nodo(entrada);
+        Nodo posicion;
+        Nodo auxiliar;
+      if (Punta == null){
+            Punta = nuevo;
+            Punta.setLigaDerecha(Punta);
+            Punta.setLigaIzquierda(Punta);
             Final = Punta;
-        } else {
-            p = Punta;
-            if (x.getDato() < p.getDato()) {
-                Punta = x;
-                Punta.setLigaIzquierda(Final);
-                Punta.setLigaDerecha(p);
-                p.setLigaIzquierda(Punta);
-                Final.setLigaDerecha(Punta);
-            } else {
-                do {
-                    a = p;
-                    p = p.getLigaDerecha();
-                } while (p != Punta && p.getDato() < x.getDato());
-                a = p;
-                b = a.getLigaIzquierda();
-                if (p == Punta) {
-                    b = Final;
-                    x.setLigaIzquierda(b);
-                    b.setLigaDerecha(x);
-                    Final = x;
-                    Final.setLigaDerecha(Punta);
-                    Punta.setLigaIzquierda(Final);
-                } else {
-                    x.setLigaIzquierda(b);
-                    x.setLigaDerecha(a);
-                    b.setLigaDerecha(x);
-                    a.setLigaIzquierda(x);
-                }
-            }
+      }else{
+        posicion = Punta;
+        while (posicion.getDato()<= entrada && posicion.getLigaDerecha() !=Punta){
+            posicion = posicion.getLigaDerecha();
         }
+        if (posicion ==Punta){
+            Punta = nuevo;
+            Punta.setLigaDerecha(posicion);
+            Punta.setLigaIzquierda(Final);
+            Final.setLigaDerecha(Punta);
+            posicion.setLigaIzquierda(Punta);
+        }else if (posicion == Final){
+            Final = nuevo;
+            Final.setLigaDerecha(Punta);
+            Final.setLigaIzquierda(posicion);
+            posicion.setLigaDerecha(Final);
+            Punta.setLigaIzquierda(Final);
+        }else{
+            auxiliar = posicion.getLigaIzquierda();
+            auxiliar.setLigaDerecha(nuevo);
+            nuevo.setLigaIzquierda(auxiliar);
+            nuevo.setLigaDerecha(posicion);
+            posicion.setLigaIzquierda(nuevo);
+        }
+      }
     }
 
-    public void InsertarOrdenadoDescendente(int d) {
-        Nodo x = new Nodo(d);
-        Nodo a, p, b, c, f;
-
+    public void InsertarOrdenadoDescendente(int entrada) {
+        Nodo nuevo = new Nodo(entrada);
+        Nodo posicion;
+        Nodo auxiliar;
         if (Punta == null) {
-            Punta = x;
-            Punta.setLigaDerecha(x);
-            Punta.setLigaIzquierda(x);
+            Punta = nuevo;
+            Punta.setLigaDerecha(Punta);
+            Punta.setLigaIzquierda(Punta);
             Final = Punta;
         } else {
-            p = Punta;
-            if (x.getDato() > p.getDato()) {
-                Punta = x;
-                Punta.setLigaIzquierda((Final));
-                Punta.setLigaDerecha(p);
-                p.setLigaIzquierda(Punta);
+            posicion = Punta;
+            while (posicion.getDato() >= entrada && posicion.getLigaDerecha() != Punta) {
+                posicion = posicion.getLigaDerecha();
+            }
+            if (posicion == Punta) {
+                Punta = nuevo;
+                Punta.setLigaDerecha(posicion);
+                Punta.setLigaIzquierda(Final);
                 Final.setLigaDerecha(Punta);
+                posicion.setLigaIzquierda(Punta);
+            } else if (posicion == Final) {
+                Final = nuevo;
+                Final.setLigaDerecha(Punta);
+                Final.setLigaIzquierda(posicion);
+                posicion.setLigaDerecha(Final);
+                Punta.setLigaIzquierda(Final);
             } else {
-                do {
-                    a = p;
-                    p = p.getLigaDerecha();
-                } while (p != Punta && p.getDato() < x.getDato());
-                a = p;
-                b = a.getLigaDerecha();
-                c = a.getLigaIzquierda();
-                f = b.getLigaDerecha();
-                if (x.getDato() < Final.getDato()) {
-                    b = Final;
-                    x.setLigaIzquierda(b);
-                    b.setLigaDerecha(x);
-                    Final = x;
-                    Final.setLigaDerecha(Punta);
-                    Punta.setLigaIzquierda(Final);
-                }
-                if (x.getDato() < b.getDato()) {
-                    x.setLigaIzquierda(b);
-                    x.setLigaDerecha(f);
-                    f.setLigaIzquierda(x);
-                    b.setLigaDerecha(x);
-                } else {
-                    x.setLigaIzquierda(a);
-                    x.setLigaDerecha(b);
-                    a.setLigaDerecha(x);
-                    b.setLigaIzquierda(x);
-                }
+                auxiliar = posicion.getLigaIzquierda();
+                auxiliar.setLigaDerecha(nuevo);
+                nuevo.setLigaIzquierda(auxiliar);
+                nuevo.setLigaDerecha(posicion);
+                posicion.setLigaIzquierda(nuevo);
             }
         }
     }
