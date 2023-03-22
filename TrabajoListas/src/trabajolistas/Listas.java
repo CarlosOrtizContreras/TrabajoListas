@@ -34,36 +34,36 @@ public class Listas {
         Nodo nuevo = new Nodo(entrada);
         Nodo posicion;
         Nodo auxiliar;
-      if (Punta == null){
+        if (Punta == null) {
             Punta = nuevo;
             Punta.setLigaDerecha(Punta);
             Punta.setLigaIzquierda(Punta);
             Final = Punta;
-      }else{
-        posicion = Punta;
-        while (posicion.getDato()<= entrada && posicion.getLigaDerecha() !=Punta){
-            posicion = posicion.getLigaDerecha();
+        } else {
+            posicion = Punta;
+            while (posicion.getDato() <= entrada && posicion.getLigaDerecha() != Punta) {
+                posicion = posicion.getLigaDerecha();
+            }
+            if (posicion == Punta) {
+                Punta = nuevo;
+                Punta.setLigaDerecha(posicion);
+                Punta.setLigaIzquierda(Final);
+                Final.setLigaDerecha(Punta);
+                posicion.setLigaIzquierda(Punta);
+            } else if (posicion == Final) {
+                Final = nuevo;
+                Final.setLigaDerecha(Punta);
+                Final.setLigaIzquierda(posicion);
+                posicion.setLigaDerecha(Final);
+                Punta.setLigaIzquierda(Final);
+            } else {
+                auxiliar = posicion.getLigaIzquierda();
+                auxiliar.setLigaDerecha(nuevo);
+                nuevo.setLigaIzquierda(auxiliar);
+                nuevo.setLigaDerecha(posicion);
+                posicion.setLigaIzquierda(nuevo);
+            }
         }
-        if (posicion ==Punta){
-            Punta = nuevo;
-            Punta.setLigaDerecha(posicion);
-            Punta.setLigaIzquierda(Final);
-            Final.setLigaDerecha(Punta);
-            posicion.setLigaIzquierda(Punta);
-        }else if (posicion == Final){
-            Final = nuevo;
-            Final.setLigaDerecha(Punta);
-            Final.setLigaIzquierda(posicion);
-            posicion.setLigaDerecha(Final);
-            Punta.setLigaIzquierda(Final);
-        }else{
-            auxiliar = posicion.getLigaIzquierda();
-            auxiliar.setLigaDerecha(nuevo);
-            nuevo.setLigaIzquierda(auxiliar);
-            nuevo.setLigaDerecha(posicion);
-            posicion.setLigaIzquierda(nuevo);
-        }
-      }
     }
 
     public void InsertarOrdenadoDescendente(int entrada) {
@@ -330,4 +330,159 @@ public class Listas {
         }
     }
 
+    public Listas Suma(Listas L1, Listas L2) {
+        Listas Lista3 = new Listas();
+        Nodo posicion = L1.Punta;
+        Nodo posicion2 = L2.Punta;
+
+        if (posicion == null && posicion2 == null) {
+            JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
+
+        } else {
+            do {
+                if (posicion != null && posicion2 != null) {
+                    Lista3.InsertarFinal(posicion.getDato() + posicion2.getDato());
+                }
+                if (posicion != null && posicion2 == null) {
+                    Lista3.InsertarFinal(posicion.getDato());
+                } else if (posicion2 != null && posicion == null) {
+                    Lista3.InsertarFinal(posicion2.getDato());
+                }
+                if (posicion == null && posicion2 != null) {
+                    posicion2 = posicion2.getLigaDerecha();
+                } else if (posicion2 == null && posicion != null) {
+                    posicion = posicion.getLigaDerecha();
+                } else {
+                    posicion = posicion.getLigaDerecha();
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+
+                if (posicion == L1.Punta) {
+                    posicion = null;
+                }
+                if (posicion2 == L2.Punta) {
+                    posicion2 = null;
+                }
+            } while ((posicion != null) || (posicion2 != null));
+            
+        }
+        return Lista3;
+    }
+
+    public Listas Resta(Listas L1, Listas L2) {
+        Listas Lista3 = new Listas();
+        Nodo posicion = L1.Punta;
+        Nodo posicion2 = L2.Punta;
+
+        if (posicion == null && posicion2 == null) {
+            JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
+
+        } else {
+            do {
+                if (posicion != null && posicion2 != null) {
+                    Lista3.InsertarFinal(posicion.getDato() - posicion2.getDato());
+                }
+                if (posicion != null && posicion2 == null) {
+                    Lista3.InsertarFinal(posicion.getDato());
+                } else if (posicion2 != null && posicion == null) {
+                    Lista3.InsertarFinal(- posicion2.getDato());
+                }
+                if (posicion == null && posicion2 != null) {
+                    posicion2 = posicion2.getLigaDerecha();
+                } else if (posicion2 == null && posicion != null) {
+                    posicion = posicion.getLigaDerecha();
+                } else {
+                    posicion = posicion.getLigaDerecha();
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+
+                if (posicion == L1.Punta) {
+                    posicion = null;
+                }
+                if (posicion2 == L2.Punta) {
+                    posicion2 = null;
+                }
+            } while ((posicion != null) || (posicion2 != null));
+
+        }
+        return Lista3;
+    }
+
+    public Listas Multiplicacion(Listas L1, Listas L2) {
+        Listas Lista3 = new Listas();
+        Nodo posicion = L1.Punta;
+        Nodo posicion2 = L2.Punta;
+
+        if (posicion == null && posicion2 == null) {
+            JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
+
+        } else {
+            do {
+                if (posicion != null && posicion2 != null) {
+                    Lista3.InsertarFinal(posicion.getDato() * posicion2.getDato());
+                }
+                if (posicion != null && posicion2 == null) {
+                    Lista3.InsertarFinal(posicion.getDato());
+                } else if (posicion2 != null && posicion == null) {
+                    Lista3.InsertarFinal(posicion2.getDato());
+                }
+                if (posicion == null && posicion2 != null) {
+                    posicion2 = posicion2.getLigaDerecha();
+                } else if (posicion2 == null && posicion != null) {
+                    posicion = posicion.getLigaDerecha();
+                } else {
+                    posicion = posicion.getLigaDerecha();
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+
+                if (posicion == L1.Punta) {
+                    posicion = null;
+                }
+                if (posicion2 == L2.Punta) {
+                    posicion2 = null;
+                }
+            } while ((posicion != null) || (posicion2 != null));
+
+        }
+        return Lista3;
+    }
+
+    public Listas Division(Listas L1, Listas L2) {
+        Listas Lista3 = new Listas();
+        Nodo posicion = L1.Punta;
+        Nodo posicion2 = L2.Punta;
+
+        if (posicion == null && posicion2 == null) {
+            JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
+
+        } else {
+            do {
+                if (posicion != null && posicion2 != null) {
+                    Lista3.InsertarFinal(posicion.getDato() / posicion2.getDato());
+                }
+                if (posicion != null && posicion2 == null) {
+                    Lista3.InsertarFinal(posicion.getDato());
+                } else if (posicion2 != null && posicion == null) {
+                    Lista3.InsertarFinal(posicion2.getDato());
+                }
+                if (posicion == null && posicion2 != null) {
+                    posicion2 = posicion2.getLigaDerecha();
+                } else if (posicion2 == null && posicion != null) {
+                    posicion = posicion.getLigaDerecha();
+                } else {
+                    posicion = posicion.getLigaDerecha();
+                    posicion2 = posicion2.getLigaDerecha();
+                }
+
+                if (posicion == L1.Punta) {
+                    posicion = null;
+                }
+                if (posicion2 == L2.Punta) {
+                    posicion2 = null;
+                }
+            } while ((posicion != null) || (posicion2 != null));
+
+        }
+        return Lista3;
+    }
 }

@@ -138,16 +138,20 @@ public class TrabajoListas {
                                         + "4. Dividir Listas\n" + "9. Para salir del submenu"));
                         switch (opcion5) {
                             case 1:
-                                Suma(lista1, lista2).MostrarLista();
+                                Listas suma = new Listas();
+                                suma.Suma(lista1, lista2).MostrarLista();
                                 break;
                             case 2:
-                                Resta(lista1, lista2).MostrarLista();
+                                Listas resta = new Listas();
+                                resta.Resta(lista1, lista2).MostrarLista();
                                 break;
                             case 3:
-                                Multiplicacion(lista1, lista2).MostrarLista();
+                                Listas multiplicacion = new Listas();
+                                multiplicacion.Multiplicacion(lista1, lista2).MostrarLista();
                                 break;
                             case 4:
-                                Division(lista1, lista2).MostrarLista();
+                                Listas division = new Listas();
+                                division.Division(lista1, lista2).MostrarLista();
                                 break;
                             case 9:
                                 condicion5 = false;
@@ -169,123 +173,4 @@ public class TrabajoListas {
         } while (condicion);
     }
 
-    public static Listas Suma(Listas L1, Listas L2) {
-        Listas Lista3 = new Listas();
-        Nodo posicion = L1.Punta;
-        Nodo posicion2 = L2.Punta;
-        do {
-
-            if (L1.Punta == null && L2.Punta == null) {
-                JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
-            } else if (L1.Punta != null || L2.Punta != null) {
-                if (L1.Punta != null && L2.Punta == null) {
-                    Lista3.InsertarFinal(posicion.getDato());
-                } else if (L2.Punta != null && L1.Punta == null) {
-                    Lista3.InsertarFinal(posicion2.getDato());
-
-                } else if (L2.Punta != null && L1.Punta != null) {
-                    Lista3.InsertarFinal(posicion.getDato() + posicion2.getDato());
-                }
-            }
-            posicion = posicion.getLigaDerecha();
-            posicion2 = posicion2.getLigaDerecha();
-            if (posicion == L1.Punta) {
-                posicion = null;
-            }
-            if (posicion2 == L2.Punta) {
-                posicion2 = null;
-            }
-        } while ((posicion != null) || (posicion2 != null));
-        return (Lista3);
-    }
-
-    public static Listas Resta(Listas L1, Listas L2) {
-        Listas Lista3 = new Listas();
-        Nodo posicion = L1.Punta;
-        Nodo posicion2 = L2.Punta;
-        do {
-
-            if (L1.Punta == null && L2.Punta == null) {
-                JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
-            } else if (L1.Punta != null || L2.Punta != null) {
-                if (L1.Punta != null && L2.Punta == null) {
-                    Lista3.InsertarFinal(posicion.getDato());
-                } else if (L2.Punta != null && L1.Punta == null) {
-                    Lista3.InsertarFinal(-posicion2.getDato());
-
-                } else if (L2.Punta != null && L1.Punta != null) {
-                    Lista3.InsertarFinal(posicion.getDato() - posicion2.getDato());
-                }
-            }
-            posicion = posicion.getLigaDerecha();
-            posicion2 = posicion2.getLigaDerecha();
-            if (posicion == L1.Punta) {
-                posicion = null;
-            }
-            if (posicion2 == L2.Punta) {
-                posicion2 = null;
-            }
-        } while ((posicion != null) || (posicion2 != null));
-        return (Lista3);
-    }
-
-    public static Listas Multiplicacion(Listas L1, Listas L2) {
-        Listas Lista3 = new Listas();
-        Nodo posicion = L1.Punta;
-        Nodo posicion2 = L2.Punta;
-        do {
-
-            if (L1.Punta == null && L2.Punta == null) {
-                JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
-            } else if (L1.Punta != null || L2.Punta != null) {
-                if (L1.Punta != null && L2.Punta == null) {
-                    Lista3.InsertarFinal(posicion.getDato());
-                } else if (L2.Punta != null && L1.Punta == null) {
-                    Lista3.InsertarFinal(posicion2.getDato());
-
-                } else if (L2.Punta != null && L1.Punta != null) {
-                    Lista3.InsertarFinal(posicion.getDato() * posicion2.getDato());
-                }
-            }
-            posicion = posicion.getLigaDerecha();
-            posicion2 = posicion2.getLigaDerecha();
-            if (posicion == L1.Punta) {
-                posicion = null;
-            }
-            if (posicion2 == L2.Punta) {
-                posicion2 = null;
-            }
-        } while ((posicion != null) || (posicion2 != null));
-        return (Lista3);
-    }
-
-    public static Listas Division(Listas L1, Listas L2) {
-        Listas Lista3 = new Listas();
-        Nodo posicion = L1.Punta;
-        Nodo posicion2 = L2.Punta;
-        do {
-
-            if (L1.Punta == null && L2.Punta == null) {
-                JOptionPane.showMessageDialog(null, "Las Listas estan vacidas");
-            } else if (L1.Punta != null || L2.Punta != null) {
-                if (L1.Punta != null && L2.Punta == null) {
-                    Lista3.InsertarFinal(posicion.getDato());
-                } else if (L2.Punta != null && L1.Punta == null) {
-                    Lista3.InsertarFinal(posicion2.getDato());
-
-                } else if (L2.Punta != null && L1.Punta != null) {
-                    Lista3.InsertarFinal(posicion.getDato() / posicion2.getDato());
-                }
-            }
-            posicion = posicion.getLigaDerecha();
-            posicion2 = posicion2.getLigaDerecha();
-            if (posicion == L1.Punta) {
-                posicion = null;
-            }
-            if (posicion2 == L2.Punta) {
-                posicion2 = null;
-            }
-        } while ((posicion != null) || (posicion2 != null));
-        return (Lista3);
-    }
 }
