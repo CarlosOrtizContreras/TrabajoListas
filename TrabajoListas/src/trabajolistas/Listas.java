@@ -157,7 +157,8 @@ public class Listas {
                         posicion2.setLigaIzquierda(auxiliar3);
                         posicion.setLigaIzquierda(posicion2);
                         auxiliar3.setLigaDerecha(posicion2);
-                        posicion = posicion2.getLigaIzquierda();
+                        posicion = posicion2.getLigaIzquierda()
+                        ;
                         ;
                     }
                 }
@@ -174,6 +175,7 @@ public class Listas {
     public void BuscarDato(int entrada) {
         Nodo posicion;
         boolean condicion = true;
+        boolean condicion2 = false;
         if (Punta == null) {
             JOptionPane.showMessageDialog(null, "La lista esta vacia, imposible buscar");
         } else {
@@ -182,9 +184,16 @@ public class Listas {
                 if (posicion.getDato() == entrada) {
                     JOptionPane.showMessageDialog(null, "El dato si esta en la Lista");
                     condicion = false;
+                    condicion2 = true;
                 }
-                posicion = posicion.getLigaDerecha();
-                if (posicion == Punta) {
+                
+                if (posicion.getLigaDerecha() == Punta && condicion2 == false) {
+                    posicion = null;
+                }else {
+                    posicion = posicion.getLigaDerecha();
+                }
+
+                if (posicion == null){
                     JOptionPane.showMessageDialog(null, "El Dato no esta en la lista");
                     condicion = false;
                 }
@@ -211,18 +220,20 @@ public class Listas {
     public void ReemplazarDato(int entrada, int reemplazo) {
         Nodo posicion;
         boolean condicion = true;
+        boolean condicion2 = true;
 
         if (Punta == null) {
-            JOptionPane.showMessageDialog(null, "La lista esta vacida");
+            JOptionPane.showMessageDialog(null, "La lista esta vacia");
         } else {
             posicion = Punta;
             do {
                 if (entrada == posicion.getDato()) {
                     posicion.setDato(reemplazo);
                     condicion = false;
+                    condicion2 = false;
                 }
                 posicion = posicion.getLigaDerecha();
-                if (posicion == Punta) {
+                if (posicion == Punta && condicion2 == true) {
                     JOptionPane.showMessageDialog(null, "El dato que se desea reemplazar no existe");
                     condicion = false;
                 }
@@ -234,50 +245,77 @@ public class Listas {
         Nodo posicion;
         Nodo auxiliar;
         Nodo auxiliar2;
+        boolean condicion3 = false;
 
         if (Punta == null) {
             JOptionPane.showMessageDialog(null, "La Lista esta vacida");
 
         } else {
-            posicion = Punta;
-            boolean condicion = true;
-            do {
-                if (posicion.getDato() == entrada) {
-                    if (posicion.getLigaDerecha() == Punta && posicion.getLigaIzquierda() == Punta) {
-                        Punta = null;
-                        condicion = false;
-                    } else if (posicion == Punta) {
-                        auxiliar2 = posicion.getLigaDerecha();
-                        posicion.setLigaDerecha(null);
-                        posicion.setLigaIzquierda(null);
-                        Punta = auxiliar2;
-                        Punta.setLigaIzquierda(Final);
-                        Final.setLigaDerecha(Punta);
-                        condicion = false;
-                    } else if (posicion == Final) {
-                        auxiliar = Final.getLigaIzquierda();
-                        posicion.setLigaDerecha(null);
-                        posicion.setLigaIzquierda(null);
-                        Final = auxiliar;
-                        Final.setLigaDerecha(Punta);
-                        Punta.setLigaIzquierda(Final);
-                        condicion = false;
-                    } else {
-                        auxiliar = posicion.getLigaIzquierda();
-                        auxiliar2 = posicion.getLigaDerecha();
-                        posicion.setLigaDerecha(null);
-                        posicion.setLigaIzquierda(null);
-                        auxiliar.setLigaDerecha(auxiliar2);
-                        auxiliar2.setLigaIzquierda(auxiliar);
-                        condicion = false;
+
+            boolean condicion1 = true;
+
+            if (Punta == null) {
+                JOptionPane.showMessageDialog(null, "La lista esta vacia, imposible buscar");
+            } else {
+                posicion = Punta;
+                do {
+                    if (posicion.getDato() == entrada) {
+                        JOptionPane.showMessageDialog(null, "El dato si esta en la Lista");
+                        condicion1 = false;
+                        condicion3 = true;
                     }
                     posicion = posicion.getLigaDerecha();
                     if (posicion == Punta) {
-                        JOptionPane.showMessageDialog(null, "El dato a eliminar no se encuentra en la lista");
-                        condicion = false;
+                        JOptionPane.showMessageDialog(null, "El Dato no esta en la lista");
+                        condicion1 = false;
                     }
-                }
-            } while (condicion);
+
+                } while (condicion1);
+            }
+
+            if (condicion3) {
+
+                posicion = Punta;
+                boolean condicion = true;
+                do {
+                    if (posicion.getDato() == entrada) {
+                        if (posicion.getLigaDerecha() == Punta && posicion.getLigaIzquierda() == Punta) {
+                            Punta = null;
+                            condicion = false;
+                        } else if (posicion == Punta) {
+                            auxiliar2 = posicion.getLigaDerecha();
+                            posicion.setLigaDerecha(null);
+                            posicion.setLigaIzquierda(null);
+                            Punta = auxiliar2;
+                            Punta.setLigaIzquierda(Final);
+                            Final.setLigaDerecha(Punta);
+                            condicion = false;
+                        } else if (posicion == Final) {
+                            auxiliar = Final.getLigaIzquierda();
+                            posicion.setLigaDerecha(null);
+                            posicion.setLigaIzquierda(null);
+                            Final = auxiliar;
+                            Final.setLigaDerecha(Punta);
+                            Punta.setLigaIzquierda(Final);
+                            condicion = false;
+                        } else {
+                            auxiliar = posicion.getLigaIzquierda();
+                            auxiliar2 = posicion.getLigaDerecha();
+                      
+                            posicion.setLigaDerecha(null);
+                            posicion.setLigaIzquierda(null);
+                            auxiliar.setLigaDerecha(auxiliar2);
+                            auxiliar2.setLigaIzquierda(auxiliar);
+                            condicion = false;
+                        }
+                        posicion = posicion.getLigaDerecha();
+                        if (posicion == Punta) {
+                            JOptionPane.showMessageDialog(null, "El dato a eliminar no se encuentra en la lista");
+                            condicion = false;
+                        }
+                    }
+                } while (condicion);
+            }
         }
     }
 
@@ -364,7 +402,7 @@ public class Listas {
                     posicion2 = null;
                 }
             } while ((posicion != null) || (posicion2 != null));
-            
+
         }
         return Lista3;
     }
@@ -385,7 +423,7 @@ public class Listas {
                 if (posicion != null && posicion2 == null) {
                     Lista3.InsertarFinal(posicion.getDato());
                 } else if (posicion2 != null && posicion == null) {
-                    Lista3.InsertarFinal(- posicion2.getDato());
+                    Lista3.InsertarFinal(-posicion2.getDato());
                 }
                 if (posicion == null && posicion2 != null) {
                     posicion2 = posicion2.getLigaDerecha();

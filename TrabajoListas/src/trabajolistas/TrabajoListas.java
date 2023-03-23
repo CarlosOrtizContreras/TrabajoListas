@@ -104,6 +104,7 @@ public class TrabajoListas {
                             case 3:
                                 entrada = Integer
                                         .parseInt(JOptionPane.showInputDialog("Ingrese el dato a eliminar"));
+                                
                                 lista1.EliminarDato(entrada);
                                 break;
                             case 9:
@@ -139,18 +140,30 @@ public class TrabajoListas {
                         switch (opcion5) {
                             case 1:
                                 Listas suma = new Listas();
+                                lista1.MostrarLista();
+                                lista2.MostrarLista();
+                                JOptionPane.showMessageDialog(null, "La suma de la lista 1 y la lista 2 es igual a: ");
                                 suma.Suma(lista1, lista2).MostrarLista();
                                 break;
                             case 2:
                                 Listas resta = new Listas();
+                                lista1.MostrarLista();
+                                lista2.MostrarLista();
+                                JOptionPane.showMessageDialog(null, "La resta de la lista 1 y la lista 2 es igual a: ");
                                 resta.Resta(lista1, lista2).MostrarLista();
                                 break;
                             case 3:
                                 Listas multiplicacion = new Listas();
+                                lista1.MostrarLista();
+                                lista2.MostrarLista();
+                                JOptionPane.showMessageDialog(null, "La multiplicacion de la lista 1 y la lista 2 es igual a: ");
                                 multiplicacion.Multiplicacion(lista1, lista2).MostrarLista();
                                 break;
                             case 4:
                                 Listas division = new Listas();
+                                lista1.MostrarLista();
+                                lista2.MostrarLista();
+                                JOptionPane.showMessageDialog(null, "La Division de la lista 1 y la lista 2 es igual a: ");
                                 division.Division(lista1, lista2).MostrarLista();
                                 break;
                             case 9:
