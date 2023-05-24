@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public class TrabajoListas {
 
     public static void main(String[] args) {
-
+       
         Listas lista1 = new Listas();
 
         boolean condicion = true;
